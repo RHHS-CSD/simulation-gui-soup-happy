@@ -9,7 +9,7 @@ package automatastarter;
  * @author yuetang
  */
 import java.util.Random;
-public class BriansBrain1 {
+public class BriansBrain {
     static int[][] grid;
     static int[][] duplicateGrid;
     static int rows = 30;
@@ -55,7 +55,7 @@ public class BriansBrain1 {
     /**
      * Generate and randomize the grid.
      */
-    private static void initializeGrid(){
+    public static void initializeGrid(){
         Random random = new Random();
         grid = new int[rows][cols];
         duplicateGrid = new int[rows][cols];

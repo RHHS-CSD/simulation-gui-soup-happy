@@ -64,7 +64,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
 
         //set up the key bindings
         setupKeys();
-
+        BriansBrain.initializeGrid();
     }
 
     private void setupKeys() {
@@ -84,10 +84,12 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (img1 != null) {
-            g.drawImage(img1, x, y, this);
-        }
-        g.drawLine(lineX, 0, 300, 300);
+//        if (img1 != null) {
+//            g.drawImage(img1, x, y, this);
+//        }
+//        g.drawLine(lineX, 0, 300, 300);
+        int length, width;
+        length = getLength();
     }
 
     /**
@@ -107,8 +109,6 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
             }
         });
 
-        jLabel1.setText("Game");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,14 +116,14 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
             .addGroup(layout.createSequentialGroup()
                 .addGap(174, 174, 174)
                 .addComponent(jLabel1)
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(135, 135, 135)
                 .addComponent(jLabel1)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -219,6 +219,8 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         public void actionPerformed(ActionEvent ae) {
             //the stuff we want to change every clock tick
             lineX++;
+            
+
             //force redraw
             repaint();
         }

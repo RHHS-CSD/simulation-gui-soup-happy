@@ -5,6 +5,7 @@
  */
 package automatastarter;
 
+import java.awt.Color;
 import utils.CardSwitcher;
 import utils.ImageUtil;
 import java.awt.Graphics;
@@ -33,6 +34,8 @@ import javax.swing.Timer;
 public class GamePanel extends javax.swing.JPanel implements MouseListener {
 
     public static final String CARD_NAME = "game";
+    
+    int cellSize;
 
     CardSwitcher switcher; // This is the parent panel
     Timer animTimer;
@@ -59,8 +62,8 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         //tells us the panel that controls this one
         switcher = p;
         //create and start a Timer for animation
-        animTimer = new Timer(10, new AnimTimerTick());
-        animTimer.start();
+        animTimer = new Timer(100, new AnimTimerTick());
+       // animTimer.start();
 
         //set up the key bindings
         setupKeys();
@@ -89,7 +92,19 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
 //        }
 //        g.drawLine(lineX, 0, 300, 300);
         int length, width;
-        length = getLength();
+        length = getWidth() / BriansBrain.cols;
+        width = getHeight() / BriansBrain.rows;
+        cellSize = Math.min(length, width);
+        for (int r = 0; r < BriansBrain.rows; r++){
+            for (int c = 0; c < BriansBrain.cols; c++){
+                switch (BriansBrain.grid[r][c]) {
+                    case 2 -> g.setColor(Color.white);
+                    case 1 -> g.setColor(Color.blue);
+                    default -> g.setColor(Color.black);
+                }
+                g.fillRect(r * cellSize, c * cellSize, cellSize, cellSize);
+            }
+        }
     }
 
     /**
@@ -129,6 +144,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         lineX = 0;
+        animTimer.start();
     }//GEN-LAST:event_formComponentShown
 
 
@@ -219,7 +235,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         public void actionPerformed(ActionEvent ae) {
             //the stuff we want to change every clock tick
             lineX++;
-            
+            BriansBrain.updateGrid();
 
             //force redraw
             repaint();

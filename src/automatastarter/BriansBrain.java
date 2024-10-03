@@ -12,8 +12,8 @@ import java.util.Random;
 public class BriansBrain {
     static int[][] grid;
     static int[][] duplicateGrid;
-    static int rows = 30;
-    static int cols = 30;
+    static int rows = 100;
+    static int cols = 100;
     static boolean simulationRunning = true;
 
     /**
@@ -78,7 +78,7 @@ public class BriansBrain {
     /**
      * Check the cell's current state and apply rules. 
      */
-    private static void updateGrid(){
+    public static void updateGrid(){
         //update the grid according to the values stored in the duplicate grid
         for (int r = 0; r < rows; r++){
             for (int c = 0; c < cols; c++){

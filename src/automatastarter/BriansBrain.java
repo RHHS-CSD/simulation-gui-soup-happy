@@ -35,7 +35,7 @@ public class BriansBrain {
         }
     }
     
-    private static void setDimensions(int r, int c){
+    public static void setDimensions(int r, int c){
         rows = r;
         cols = c;
     }

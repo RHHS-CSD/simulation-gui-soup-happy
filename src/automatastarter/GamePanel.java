@@ -143,7 +143,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        lineX = 0;
+//        lineX = 0;
         animTimer.start();
     }//GEN-LAST:event_formComponentShown
 
@@ -234,7 +234,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
 
         public void actionPerformed(ActionEvent ae) {
             //the stuff we want to change every clock tick
-            lineX++;
+//            lineX++;
             BriansBrain.updateGrid();
 
             //force redraw

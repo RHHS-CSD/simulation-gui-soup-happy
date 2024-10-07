@@ -85,6 +85,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         this.getActionMap().put("xKey", new Move("x"));
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 //        if (img1 != null) {
@@ -160,8 +161,16 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
      */
     public void mouseClicked(MouseEvent me) {
         System.out.println("Click: " + me.getX() + ":" + me.getY());
-        x = 5;
-        y = 5;
+        int row, col;
+        row = me.getY() / cellSize;
+        col = me.getX() / cellSize;
+        if (BriansBrain.grid[row][col] == 2){
+            BriansBrain.grid[row][col] = 0;
+        }
+        else {
+            BriansBrain.grid[row][col]++;
+        }
+        repaint();
     }
 
     /**
@@ -213,14 +222,14 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
 
         public void actionPerformed(ActionEvent ae) {
             // here you decide what you want to happen if a particular key is pressed
-            System.out.println("llll" + key);
-            switch(key){
-                case "d": x+=2; break;
-                case "x": animTimer.stop(); switcher.switchToCard(EndPanel.CARD_NAME); break;
-            }
-            if (key.equals("d")) {
-                x = x + 2;
-            }
+//            System.out.println("llll" + key);
+//            switch(key){
+//                case "d": x+=2; break;
+//                case "x": animTimer.stop(); switcher.switchToCard(EndPanel.CARD_NAME); break;
+//            }
+//            if (key.equals("d")) {
+//                x = x + 2;
+//            }
             
         }
 
@@ -232,6 +241,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
      */
     private class AnimTimerTick implements ActionListener {
 
+        @Override
         public void actionPerformed(ActionEvent ae) {
             //the stuff we want to change every clock tick
 //            lineX++;

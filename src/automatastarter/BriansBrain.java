@@ -15,6 +15,7 @@ public class BriansBrain {
     static int rows = 100;
     static int cols = 100;
     static boolean simulationRunning = true;
+    static int generationCount = 0;
 
     /**
      * @param args the command line arguments
@@ -40,11 +41,35 @@ public class BriansBrain {
         cols = c;
     }
     
-    private static int countOnCells(){
+    public static int countOnCells(){
         int count = 0;
-        for (int r = 0; r < rows; r++){
-            for (int c = 0; c < cols; c++){
-                if (grid[r][c] == 2){
+        for (int[] row: grid){
+            for (int cell: row){
+                if (cell == 2){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    
+    public static int countDyingCells(){
+        int count = 0;
+        for (int[] row: grid){
+            for (int cell: row){
+                if (cell == 1){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    
+    public static int countOffCells(){
+        int count = 0;
+        for (int[] row: grid){
+            for (int cell: row){
+                if (cell == 0){
                     count++;
                 }
             }
@@ -97,6 +122,7 @@ public class BriansBrain {
                 duplicateGrid[r][c] = grid[r][c];
             }
         }
+        generationCount++;
     }
     
     /**

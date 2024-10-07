@@ -83,7 +83,11 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
         resetButton = new javax.swing.JButton();
         speedControlSlider = new javax.swing.JSlider();
         speedControlLabel = new javax.swing.JLabel();
-        customSetupButton = new javax.swing.JButton();
+        generationCountLabel = new javax.swing.JLabel();
+        onCellsLabel = new javax.swing.JLabel();
+        dyingCellsLabel = new javax.swing.JLabel();
+        offCellsLabel = new javax.swing.JLabel();
+        customSetupToggleButton = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,7 +95,7 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
         cardPanel.setLayout(cardPanelLayout);
         cardPanelLayout.setHorizontalGroup(
             cardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGap(0, 592, Short.MAX_VALUE)
         );
         cardPanelLayout.setVerticalGroup(
             cardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,13 +117,34 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
         });
 
         resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
+        });
+
+        speedControlSlider.setMaximum(50);
+        speedControlSlider.setMinimum(5);
+        speedControlSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                speedControlSliderStateChanged(evt);
+            }
+        });
 
         speedControlLabel.setText("Speed Control");
 
-        customSetupButton.setText("Custom Setup");
-        customSetupButton.addActionListener(new java.awt.event.ActionListener() {
+        generationCountLabel.setText("Generation Count: ");
+
+        onCellsLabel.setText("On Cells: ");
+
+        dyingCellsLabel.setText("Dying Cells: ");
+
+        offCellsLabel.setText("Off Cells: ");
+
+        customSetupToggleButton.setText("Custom Setup");
+        customSetupToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                customSetupButtonActionPerformed(evt);
+                customSetupToggleButtonActionPerformed(evt);
             }
         });
 
@@ -130,15 +155,20 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(pauseButton)
-                        .addComponent(startButton)
-                        .addComponent(resetButton)
-                        .addComponent(speedControlSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(speedControlLabel)
-                    .addComponent(customSetupButton))
-                .addGap(24, 24, 24)
-                .addComponent(cardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(generationCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(onCellsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dyingCellsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(offCellsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(resetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pauseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(speedControlSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(speedControlLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(customSetupToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,9 +184,17 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
                 .addComponent(speedControlSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(speedControlLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(customSetupButton)
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(customSetupToggleButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addComponent(generationCountLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(onCellsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dyingCellsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(offCellsLabel)
+                .addGap(17, 17, 17))
         );
 
         pack();
@@ -167,12 +205,21 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
     }//GEN-LAST:event_pauseButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        // TODO add your handling code here:
+        gp.animTimer.start();
     }//GEN-LAST:event_startButtonActionPerformed
 
-    private void customSetupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customSetupButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_customSetupButtonActionPerformed
+    private void speedControlSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedControlSliderStateChanged
+        gp.animTimer.setDelay(1000 / speedControlSlider.getValue()); 
+    }//GEN-LAST:event_speedControlSliderStateChanged
+
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        BriansBrain.initializeGrid();
+        gp.repaint();
+    }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void customSetupToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customSetupToggleButtonActionPerformed
+        gp.isEdit = !gp.isEdit;
+    }//GEN-LAST:event_customSetupToggleButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,7 +263,11 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cardPanel;
-    private javax.swing.JButton customSetupButton;
+    private javax.swing.JToggleButton customSetupToggleButton;
+    private javax.swing.JLabel dyingCellsLabel;
+    public javax.swing.JLabel generationCountLabel;
+    private javax.swing.JLabel offCellsLabel;
+    private javax.swing.JLabel onCellsLabel;
     private javax.swing.JButton pauseButton;
     private javax.swing.JButton resetButton;
     private javax.swing.JLabel speedControlLabel;

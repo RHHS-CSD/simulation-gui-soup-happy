@@ -98,6 +98,7 @@ public class BriansBrain {
                 duplicateGrid[r][c] = grid[r][c];
             }
         }
+        generationCount = 0;
     }
     
     /**
@@ -157,5 +158,13 @@ public class BriansBrain {
             System.out.println();
         }
         System.out.println();
+    }
+    
+    /**
+     * Return the grid.
+     * @return  the grid
+     */
+    public static int[][] getGrid(){
+        return grid;
     }
 }

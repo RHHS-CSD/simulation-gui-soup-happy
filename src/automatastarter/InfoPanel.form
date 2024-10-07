@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -17,18 +17,25 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
               <Component id="backButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="187" max="32767" attributes="0"/>
+              <EmptySpace pref="160" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane2" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Component id="backButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="145" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane2" pref="230" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -42,5 +49,24 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backButtonActionPerformed"/>
       </Events>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="introductionTextArea">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="Introduction to Brian&apos;s Brain Simulation&#xa;&#xa;History:&#xa;Brian&apos;s Brain was created by Brian Silverman in 1994 as a cellular automaton inspired by Conway&apos;s Game of Life. It features three states for each cell: On, Off, and Dying, allowing for unique and dynamic patterns.&#xa;&#xa;Rules:&#xa;&#xa;Each cell can be in one of three states: &apos;On&apos;, &apos;Off&apos;, or &apos;Dying&apos;.&#xa;An &apos;On&apos; cell transitions to &apos;Dying&apos; in the next step.&#xa;A &apos;Dying&apos; cell becomes &apos;Off&apos; in the following step.&#xa;An &apos;Off&apos; cell becomes &apos;On&apos; if exactly two of its neighbors are &apos;On&apos;; otherwise, it remains &apos;Off&apos;.&#xa;Instructions:&#xa;To use the application, start by clicking the &apos;Start&apos; button to begin the simulation. You can toggle cell states by clicking on them with the mouse. Adjust the grid size and simulation speed in the settings menu. Use the &apos;Pause&apos; button to temporarily halt the simulation and the &apos;Reset&apos; button to clear the grid.&#xa;&#xa;Common Patterns:&#xa;Some well-known patterns include:&#xa;&#xa;Blinker: A small oscillating pattern that switches states.&#xa;Glider: A pattern that moves diagonally across the grid over time.&#xa;Still Life: A configuration that remains unchanged after several iterations."/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="introductionTextArea.setEditable(false);"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

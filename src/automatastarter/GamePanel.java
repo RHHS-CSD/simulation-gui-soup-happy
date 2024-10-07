@@ -25,6 +25,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 /**
@@ -32,7 +33,7 @@ import javax.swing.Timer;
  * @author michael.roy-diclemen
  */
 public class GamePanel extends javax.swing.JPanel implements MouseListener {
-
+    
     public static final String CARD_NAME = "game";
     
     int cellSize;
@@ -46,7 +47,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     int y = 10;
     int xdir = 5;
     int lineX = 0;
-
+    boolean isEdit = false;
     /**
      * Creates new form GamePanel
      */
@@ -88,14 +89,17 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+    FrameForGame f = (FrameForGame)(SwingUtilities.getWindowAncestor(this));
+f.generationCountLabel.setText("Generation: " + BriansBrain.generationCount);
+
 //        if (img1 != null) {
 //            g.drawImage(img1, x, y, this);
 //        }
 //        g.drawLine(lineX, 0, 300, 300);
-        int length, width;
-        length = getWidth() / BriansBrain.cols;
-        width = getHeight() / BriansBrain.rows;
-        cellSize = Math.min(length, width);
+        int width, height;
+        width = getWidth() / BriansBrain.cols;
+        height = getHeight() / BriansBrain.rows;
+        cellSize = Math.min(width, height);
         for (int r = 0; r < BriansBrain.rows; r++){
             for (int c = 0; c < BriansBrain.cols; c++){
                 switch (BriansBrain.grid[r][c]) {
@@ -145,7 +149,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
 //        lineX = 0;
-        animTimer.start();
+//        animTimer.start();
     }//GEN-LAST:event_formComponentShown
 
 
@@ -160,17 +164,18 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
      * @param me
      */
     public void mouseClicked(MouseEvent me) {
-        System.out.println("Click: " + me.getX() + ":" + me.getY());
-        int row, col;
-        row = me.getY() / cellSize;
-        col = me.getX() / cellSize;
-        if (BriansBrain.grid[row][col] == 2){
-            BriansBrain.grid[row][col] = 0;
+//        System.out.println("Click: " + me.getX() + ":" + me.getY());
+        if (isEdit){
+            int row = me.getY() / cellSize;
+            int col = me.getX() / cellSize;
+            if (BriansBrain.grid[row][col] == 2){
+                BriansBrain.grid[row][col] = 0;
+            }
+            else {
+                BriansBrain.grid[row][col]++;
+            }
+            repaint();
         }
-        else {
-            BriansBrain.grid[row][col]++;
-        }
-        repaint();
     }
 
     /**

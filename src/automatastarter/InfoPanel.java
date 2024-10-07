@@ -34,6 +34,8 @@ public class InfoPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         backButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        introductionTextArea = new javax.swing.JTextArea();
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -42,21 +44,33 @@ public class InfoPanel extends javax.swing.JPanel {
             }
         });
 
+        introductionTextArea.setColumns(20);
+        introductionTextArea.setRows(5);
+        introductionTextArea.setText("Introduction to Brian's Brain Simulation\n\nHistory:\nBrian's Brain was created by Brian Silverman in 1994 as a cellular automaton inspired by Conway's Game of Life. It features three states for each cell: On, Off, and Dying, allowing for unique and dynamic patterns.\n\nRules:\n\nEach cell can be in one of three states: 'On', 'Off', or 'Dying'.\nAn 'On' cell transitions to 'Dying' in the next step.\nA 'Dying' cell becomes 'Off' in the following step.\nAn 'Off' cell becomes 'On' if exactly two of its neighbors are 'On'; otherwise, it remains 'Off'.\nInstructions:\nTo use the application, start by clicking the 'Start' button to begin the simulation. You can toggle cell states by clicking on them with the mouse. Adjust the grid size and simulation speed in the settings menu. Use the 'Pause' button to temporarily halt the simulation and the 'Reset' button to clear the grid.\n\nCommon Patterns:\nSome well-known patterns include:\n\nBlinker: A small oscillating pattern that switches states.\nGlider: A pattern that moves diagonally across the grid over time.\nStill Life: A configuration that remains unchanged after several iterations.");
+        jScrollPane2.setViewportView(introductionTextArea);
+        introductionTextArea.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
+                .addGap(178, 178, 178)
                 .addComponent(backButton)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(160, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(130, 130, 130)
+                .addGap(33, 33, 33)
                 .addComponent(backButton)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -67,5 +81,7 @@ public class InfoPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JTextArea introductionTextArea;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

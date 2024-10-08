@@ -264,10 +264,10 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cardPanel;
     private javax.swing.JToggleButton customSetupToggleButton;
-    private javax.swing.JLabel dyingCellsLabel;
+    public javax.swing.JLabel dyingCellsLabel;
     public javax.swing.JLabel generationCountLabel;
-    private javax.swing.JLabel offCellsLabel;
-    private javax.swing.JLabel onCellsLabel;
+    public javax.swing.JLabel offCellsLabel;
+    public javax.swing.JLabel onCellsLabel;
     private javax.swing.JButton pauseButton;
     private javax.swing.JButton resetButton;
     private javax.swing.JLabel speedControlLabel;

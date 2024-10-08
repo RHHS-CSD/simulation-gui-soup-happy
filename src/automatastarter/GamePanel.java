@@ -89,8 +89,11 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-    FrameForGame f = (FrameForGame)(SwingUtilities.getWindowAncestor(this));
-f.generationCountLabel.setText("Generation: " + BriansBrain.generationCount);
+        FrameForGame f = (FrameForGame)(SwingUtilities.getWindowAncestor(this));
+        f.generationCountLabel.setText("Generation: " + BriansBrain.generationCount);
+        f.onCellsLabel.setText("On Cells: " + BriansBrain.countOnCells());
+        f.dyingCellsLabel.setText("Dying Cells: " + BriansBrain.countDyingCells());
+        f.offCellsLabel.setText("Off Cells: " + BriansBrain.countOffCells());
 
 //        if (img1 != null) {
 //            g.drawImage(img1, x, y, this);
@@ -107,7 +110,7 @@ f.generationCountLabel.setText("Generation: " + BriansBrain.generationCount);
                     case 1 -> g.setColor(Color.blue);
                     default -> g.setColor(Color.black);
                 }
-                g.fillRect(r * cellSize, c * cellSize, cellSize, cellSize);
+                g.fillRect(c * cellSize, r * cellSize, cellSize, cellSize);
             }
         }
     }

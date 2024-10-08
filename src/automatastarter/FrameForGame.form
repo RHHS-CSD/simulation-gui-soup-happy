@@ -140,16 +140,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="On Cells: "/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="dyingCellsLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Dying Cells: "/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="offCellsLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Off Cells: "/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JToggleButton" name="customSetupToggleButton">
       <Properties>

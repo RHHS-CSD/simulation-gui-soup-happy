@@ -178,6 +178,13 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
                 BriansBrain.grid[row][col]++;
             }
             repaint();
+//            for (int r = 0; r < BriansBrain.rows; r++){
+//                for (int c = 0; c < BriansBrain.cols; c++){
+//                    if (BriansBrain.grid[r][c] == 1){
+//                        System.out.print("[" + r + "]" + "[" + c + "], ");
+//                    }
+//                }
+//            }
         }
     }
 

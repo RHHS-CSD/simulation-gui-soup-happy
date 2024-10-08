@@ -12,8 +12,8 @@ import java.util.Random;
 public class BriansBrain {
     static int[][] grid;
     static int[][] duplicateGrid;
-    static int rows = 60;
-    static int cols = 60;
+    static int rows = 20;
+    static int cols = 80;
     static boolean simulationRunning = true;
     static int generationCount = 0;
 

@@ -214,6 +214,9 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         BriansBrain.initializeGrid();
+        onCellsLabel.setText("On Cells: " + BriansBrain.countOnCells());
+        dyingCellsLabel.setText("Dying Cells: " + BriansBrain.countDyingCells());
+        offCellsLabel.setText("Off Cells: " + BriansBrain.countOffCells());
         gp.repaint();
     }//GEN-LAST:event_resetButtonActionPerformed
 

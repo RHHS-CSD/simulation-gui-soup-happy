@@ -7,23 +7,12 @@ package automatastarter;
 
 import java.awt.Color;
 import utils.CardSwitcher;
-import utils.ImageUtil;
 import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
@@ -34,40 +23,38 @@ import javax.swing.Timer;
  */
 public class GamePanel extends javax.swing.JPanel implements MouseListener {
     
+    /**
+     * Assign name to the game panel.
+     */
     public static final String CARD_NAME = "game";
-    
-    int cellSize;
 
     CardSwitcher switcher; // This is the parent panel
     Timer animTimer;
-    // Image img1 = Toolkit.getDefaultToolkit().getImage("yourFile.jpg");
-//    BufferedImage img1;
+
     //variables to control your animation elements
-//    int x = 0;
-//    int y = 10;
-//    int xdir = 5;
-//    int lineX = 0;
     boolean isEdit = false;
+    int cellSize;
+    
     /**
-     * Creates new form GamePanel
+     * Creates new form GamePanel. 
+     * @param p
      */
     public GamePanel(CardSwitcher p) {
         initComponents();
-
-//        img1 = ImageUtil.loadAndResizeImage("yourFile.jpg", 300, 300);//, WIDTH, HEIGHT)//ImageIO.read(new File("yourFile.jpg"));
 
         this.setFocusable(true);
 
         // tell the program we want to listen to the mouse
         addMouseListener(this);
+        
         //tells us the panel that controls this one
         switcher = p;
+        
         //create and start a Timer for animation
         animTimer = new Timer(100, new AnimTimerTick());
-       // animTimer.start();
 
         //set up the key bindings
-        setupKeys();
+//        setupKeys();
         BriansBrain.initializeGrid();
     }
 
@@ -86,19 +73,24 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         this.getActionMap().put("xKey", new Move("x"));
     }
 
+    /**
+     * Update labels and the grid to the panel. 
+     * @param g
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        
+        // get frame for game
         FrameForGame f = (FrameForGame)(SwingUtilities.getWindowAncestor(this));
+        
+        // update counts on the frame
         f.generationCountLabel.setText("Generation: " + BriansBrain.generationCount);
         f.onCellsLabel.setText("On Cells: " + BriansBrain.countOnCells());
         f.dyingCellsLabel.setText("Dying Cells: " + BriansBrain.countDyingCells());
         f.offCellsLabel.setText("Off Cells: " + BriansBrain.countOffCells());
 
-//        if (img1 != null) {
-//            g.drawImage(img1, x, y, this);
-//        }
-//        g.drawLine(lineX, 0, 300, 300);
+        // find the maximum sidelenth of the cell
         int width, height;
         width = getWidth() / BriansBrain.cols;
         height = getHeight() / BriansBrain.rows;
@@ -106,10 +98,16 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
         for (int r = 0; r < BriansBrain.rows; r++){
             for (int c = 0; c < BriansBrain.cols; c++){
                 switch (BriansBrain.grid[r][c]) {
+                    // set color white for on cells
                     case 2 -> g.setColor(Color.white);
+                    
+                    // set color blue for dying cells
                     case 1 -> g.setColor(Color.blue);
+                    
+                    // set color black for off cells
                     default -> g.setColor(Color.black);
                 }
+                // draw each cell
                 g.fillRect(c * cellSize, r * cellSize, cellSize, cellSize);
             }
         }
@@ -162,13 +160,14 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
 
     /**
      * This event captures a click which is defined as pressing and releasing in
-     * the same area
+     * the same area. 
      *
      * @param me
      */
     public void mouseClicked(MouseEvent me) {
-//        System.out.println("Click: " + me.getX() + ":" + me.getY());
+        // check if the customize setup toggle button is clicked
         if (isEdit){
+            // get the row and column of cell toggled
             int row = me.getY() / cellSize;
             int col = me.getX() / cellSize;
             if (BriansBrain.grid[row][col] == 2){
@@ -178,13 +177,6 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
                 BriansBrain.grid[row][col]++;
             }
             repaint();
-//            for (int r = 0; r < BriansBrain.rows; r++){
-//                for (int c = 0; c < BriansBrain.cols; c++){
-//                    if (BriansBrain.grid[r][c] == 1){
-//                        System.out.print("[" + r + "]" + "[" + c + "], ");
-//                    }
-//                }
-//            }
         }
     }
 
@@ -235,17 +227,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
             key = akey;
         }
 
-        public void actionPerformed(ActionEvent ae) {
-            // here you decide what you want to happen if a particular key is pressed
-//            System.out.println("llll" + key);
-//            switch(key){
-//                case "d": x+=2; break;
-//                case "x": animTimer.stop(); switcher.switchToCard(EndPanel.CARD_NAME); break;
-//            }
-//            if (key.equals("d")) {
-//                x = x + 2;
-//            }
-            
+        public void actionPerformed(ActionEvent ae) {            
         }
 
     }
@@ -258,8 +240,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            //the stuff we want to change every clock tick
-//            lineX++;
+            
             BriansBrain.updateGrid();
 
             //force redraw

@@ -9,11 +9,16 @@ package automatastarter;
  * @author yuetang
  */
 import java.util.Random;
+
+/**
+ * The main engine of the simulation. 
+ * @author yuetang
+ */
 public class BriansBrain {
     static int[][] grid;
     static int[][] duplicateGrid;
-    static int rows = 20;
-    static int cols = 80;
+    static int rows = 100;
+    static int cols = 100;
     static boolean simulationRunning = true;
     static int generationCount = 0;
 
@@ -36,11 +41,20 @@ public class BriansBrain {
         }
     }
     
+    /**
+     * Set the rows and columns. 
+     * @param r
+     * @param c
+     */
     public static void setDimensions(int r, int c){
         rows = r;
         cols = c;
     }
     
+    /**
+     * Count and return the number of on cells in the grid. 
+     * @return  the total number of on cells in the grid
+     */
     public static int countOnCells(){
         int count = 0;
         for (int[] row: grid){
@@ -53,6 +67,10 @@ public class BriansBrain {
         return count;
     }
     
+    /**
+     * Count and return the number of dying cells in the grid. 
+     * @return  the number of dying cells in the grid. 
+     */
     public static int countDyingCells(){
         int count = 0;
         for (int[] row: grid){
@@ -65,6 +83,10 @@ public class BriansBrain {
         return count;
     }
     
+    /**
+     * Count and return the number of off cells in the grid. 
+     * @return
+     */
     public static int countOffCells(){
         int count = 0;
         for (int[] row: grid){

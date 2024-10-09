@@ -38,7 +38,7 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
     GamePanel gp;
 
     /**
-     * Creates new form FrameForGame
+     * Creates new form FrameForGame.
      */
     public FrameForGame() {
         initComponents();
@@ -214,13 +214,17 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         BriansBrain.initializeGrid();
+        
+        //update the labels
         onCellsLabel.setText("On Cells: " + BriansBrain.countOnCells());
         dyingCellsLabel.setText("Dying Cells: " + BriansBrain.countDyingCells());
         offCellsLabel.setText("Off Cells: " + BriansBrain.countOffCells());
+        
         gp.repaint();
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void customSetupToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customSetupToggleButtonActionPerformed
+        // set the grid editable
         gp.isEdit = !gp.isEdit;
     }//GEN-LAST:event_customSetupToggleButtonActionPerformed
 
@@ -259,6 +263,10 @@ public class FrameForGame extends javax.swing.JFrame implements CardSwitcher {
         });
     }
 
+    /**
+     * Switch to the designated panel.
+     * @param cardName
+     */
     @Override
     public void switchToCard(String cardName) {
         cl.show(cardPanel, cardName);

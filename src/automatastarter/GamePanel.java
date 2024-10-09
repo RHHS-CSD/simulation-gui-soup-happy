@@ -41,12 +41,12 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     CardSwitcher switcher; // This is the parent panel
     Timer animTimer;
     // Image img1 = Toolkit.getDefaultToolkit().getImage("yourFile.jpg");
-    BufferedImage img1;
+//    BufferedImage img1;
     //variables to control your animation elements
-    int x = 0;
-    int y = 10;
-    int xdir = 5;
-    int lineX = 0;
+//    int x = 0;
+//    int y = 10;
+//    int xdir = 5;
+//    int lineX = 0;
     boolean isEdit = false;
     /**
      * Creates new form GamePanel
@@ -54,7 +54,7 @@ public class GamePanel extends javax.swing.JPanel implements MouseListener {
     public GamePanel(CardSwitcher p) {
         initComponents();
 
-        img1 = ImageUtil.loadAndResizeImage("yourFile.jpg", 300, 300);//, WIDTH, HEIGHT)//ImageIO.read(new File("yourFile.jpg"));
+//        img1 = ImageUtil.loadAndResizeImage("yourFile.jpg", 300, 300);//, WIDTH, HEIGHT)//ImageIO.read(new File("yourFile.jpg"));
 
         this.setFocusable(true);
 

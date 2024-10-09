@@ -6,9 +6,12 @@
 package automatastarter;
 
 import utils.CardSwitcher;
-import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
-import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
@@ -16,9 +19,14 @@ import javax.swing.JPanel;
  */
 public class IntroPanel extends javax.swing.JPanel {
     public static final String CARD_NAME = "intro";
+    
+    Timer animTimer;
+    
     int rows = 11;
     int cols = 75;
-    int infoGrid[][] = new int[rows][cols];
+    int introGrid[][] = new int[rows][cols];
+    int duplicateIntroGrid[][] = new int[rows][cols];
+    int cellSize;
     int[][] coordinates = {
     {3, 2}, {3, 3}, {3, 4}, {3, 5}, {3, 16}, {3, 32}, {3, 44}, {3, 45}, {3, 46}, {3, 47}, {3, 64}, 
     {4, 2}, {4, 6}, {4, 32}, {4, 44}, {4, 48}, 
@@ -38,29 +46,96 @@ public class IntroPanel extends javax.swing.JPanel {
     {9, 64}, {9, 65}, {9, 66}, {9, 68}, {9, 72}
     };
 
-
-    
-
     CardSwitcher switcher = null;
     /**
      * Creates new form IntroPanel
+     * @param p
      */
     public IntroPanel(CardSwitcher p) {
-        for (int i = 0; i < infoGrid.length; i++){
-            Arrays.fill(infoGrid[i], 0);
+        initComponents();
+        animTimer = new Timer(100, new AnimTimerTick());
+        animTimer.start();
+        switcher = p;
+    }
+    
+    private void initializeGrid(){
+        for (int i = 0; i < introGrid.length; i++){
+            Arrays.fill(introGrid[i], 0);
         }
         for (int[] coordinate: coordinates){
-            infoGrid[coordinate[0]][coordinate[1]] = 2;
+            introGrid[coordinate[0]][coordinate[1]] = 2;
         }
         for (int r = 0; r < rows - 1; r++){
             for (int c = 1; c < cols; c++){
-                if (infoGrid[r][c] == 0 && infoGrid[r + 1][c - 1] == 2){
-                    infoGrid[r][c] = 1;
+                if (introGrid[r][c] == 0 && introGrid[r + 1][c - 1] == 2){
+                    introGrid[r][c] = 1;
                 }
             }
         }
-        initComponents();
-        switcher = p;
+    }
+    
+    @Override
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        
+        int width, height;
+        width = getWidth() / cols;
+        height = getHeight() / rows;
+        cellSize = Math.min(width, height);
+        for (int r = 0; r < rows; r++){
+            for (int c = 0; c < cols; c++){
+                switch (introGrid[r][c]) {
+                    case 2 -> g.setColor(Color.white);
+                    case 1 -> g.setColor(Color.blue);
+                    default -> g.setColor(Color.black);
+                }
+                g.fillRect(c * cellSize, r * cellSize, cellSize, cellSize);
+            }
+        }
+    }
+    
+    private class AnimTimerTick implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            updateGrid();
+            repaint();
+        }
+    }
+    
+    private void updateGrid(){
+        for (int r = 0; r < rows; r++){
+            for (int c = 0; c < cols; c++){
+                if (duplicateIntroGrid[r][c] == 2 || duplicateIntroGrid[r][c] == 1){
+                    introGrid[r][c]--;
+                }
+                else if (duplicateIntroGrid[r][c] == 0 && countOnCells(r, c) == 2){
+                    introGrid[r][c] = 2;
+                }
+            }
+        }
+        
+        //copy the grid into the duplicate grid
+        for (int r = 0; r < rows; r++){
+            for (int c = 0; c < cols; c++){
+                duplicateIntroGrid[r][c] = introGrid[r][c];
+            }
+        }
+    }
+    
+    private int countOnCells(int r, int c){
+        //count the on cells in the 3*3 cell grid around it
+        int count = 0;
+        for (int i = r - 1; i <= r + 1; i++){
+            for (int j = c - 1; j <= c + 1; j++){
+                if (i >= 0 && i < rows && j >= 0 && j < cols){
+                    if (duplicateIntroGrid[i][j] == 2){
+                    count++;
+                    }
+                }
+            }
+        }
+        return count;
     }
 
     /**
@@ -74,7 +149,7 @@ public class IntroPanel extends javax.swing.JPanel {
 
         GameButton = new javax.swing.JButton();
         infoButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        titlePanel = new automatastarter.TitlePanel();
 
         GameButton.setText("Game");
         GameButton.addActionListener(new java.awt.event.ActionListener() {
@@ -91,14 +166,14 @@ public class IntroPanel extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout titlePanelLayout = new javax.swing.GroupLayout(titlePanel);
+        titlePanel.setLayout(titlePanelLayout);
+        titlePanelLayout.setHorizontalGroup(
+            titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 372, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        titlePanelLayout.setVerticalGroup(
+            titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
@@ -109,24 +184,21 @@ public class IntroPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(151, 151, 151)
-                                .addComponent(GameButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(99, 99, 99)
-                                .addComponent(infoButton)))
-                        .addGap(0, 98, Short.MAX_VALUE))
+                        .addGap(151, 151, 151)
+                        .addComponent(GameButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(infoButton))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(GameButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,6 +219,6 @@ public class IntroPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GameButton;
     private javax.swing.JButton infoButton;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
 }

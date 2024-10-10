@@ -200,7 +200,7 @@ public class IntroPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void GameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GameButtonActionPerformed
-       switcher.switchToCard(GamePanel.CARD_NAME);
+        switcher.switchToCard(GamePanel.CARD_NAME);
     }//GEN-LAST:event_GameButtonActionPerformed
 
     private void infoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoButtonActionPerformed

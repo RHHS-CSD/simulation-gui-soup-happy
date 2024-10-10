@@ -6,8 +6,6 @@
 package automatastarter;
 
 import utils.CardSwitcher;
-import java.awt.CardLayout;
-import javax.swing.JPanel;
 
 /**
  *
@@ -18,6 +16,7 @@ public class InfoPanel extends javax.swing.JPanel {
     CardSwitcher switcher = null;
     /**
      * Creates new form IntroPanel
+     * @param p card switcher
      */
     public InfoPanel(CardSwitcher p) {
         initComponents();
